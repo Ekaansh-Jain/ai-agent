@@ -79,9 +79,13 @@ END LAUNDERING ATTEMPT - CYCLE
 
 ## 5. Confirmed characteristics
 
-- **Multi-currency:** a single scheme can mix US Dollar / Euro / Yuan / Yen, and amounts change across hops.
+- **Bank codes are variable-length strings** — e.g. `026`, `029`, `000`, `00952`, `0072043`. They are NOT fixed width and leading zeros are significant. **Load ALL bank + account codes as strings; never coerce to int; never re-pad.** (`026` and `0072043` are different banks, not the same bank padded differently.)
+- **Multi-currency (5+ currencies observed):** US Dollar, Euro, Yuan, Yen, **Ruble**. A single scheme can mix currencies across hops (the CYCLE spans four).
+- **Per row, received == paid and same currency** in every observed example, so a `cross_currency` (in≠out) flag rarely fires. Currency handling matters for **cross-transaction / cross-account** comparison, not within a row.
+- **Extreme amount magnitudes:** amounts span from ~1,000 up to hundreds of billions (a FAN-IN leg shows `675,961,603,689.89` Ruble). **Use log-scaled / robust features** (median, IQR) — naive mean/std will be dominated by outliers.
+- **FAN-IN is large-amount consolidation, NOT near-threshold.** The labeled FAN-IN legs are large and wildly varying, so FAN-IN does **not** double as "structuring." (See §4 note and DECISIONS.)
 - **Node identity = `(Bank, Account)` pair** — hex account codes repeat across banks; keying on `Account` alone would wrongly merge accounts.
-- **Entity mapping available** via the Accounts file (account → Entity ID).
+- **Entity mapping available** via the Accounts file (`<variant>_accounts.csv`, e.g. `HI-Large_accounts.csv`) → account → Entity ID.
 - **No unique transaction ID** in the data.
 - **Severe class imbalance** — laundering is rare (especially LI).
 
@@ -91,11 +95,13 @@ END LAUNDERING ATTEMPT - CYCLE
 
 1. **HELD-OUT PATTERNS:** `*_Patterns.txt` is ground truth for **evaluation only**. It must **NEVER** be fed to the agent/detectors at inference. Keep it in a separate `ground_truth` module.
 2. **Node key = `(Bank, Account)`.** Provide an option to collapse to `Entity ID` for a customer-level view (build only when a query needs it).
-3. **Currency seam:** add an `amount_base` column now (= amount when USD). **Profile the currency mix first**; only build a full FX-conversion table if non-USD volume proves material. Keep a `cross_currency` boolean (cheap signal).
-4. **Synthetic `tx_id`:** assign a stable row index on ingest.
-5. **Labels:**
+3. **String typing:** read all bank codes and account codes as **strings** (`dtype=str`); never coerce to int, never re-pad. Verify the Accounts↔Trans join by match rate rather than assuming a fixed width.
+4. **Currency seam:** add an `amount_base` column now (= amount when USD). **Profile the currency mix first**; only build a full FX-conversion table if non-USD volume proves material. `cross_currency` (in≠out) is nearly always false here, so treat it as optional, not a core signal.
+5. **Amount magnitudes:** use log-scaled / robust statistics for amount features; guard against the extreme outliers (hundreds of billions in some currencies).
+6. **Synthetic `tx_id`:** assign a stable row index on ingest.
+7. **Labels:**
    - **Binary** — use `Is Laundering` if present; otherwise derive it (a transaction is laundering iff it appears in a Patterns block).
    - **Typology** — always from the Patterns file; parse blocks into typology **groupings (sets of accounts/entities)**. Prefer evaluating at **account / entity / case** level to avoid fragile per-row tuple matching (float amounts + duplicate timestamps collide). If you must join rows, match on the full tuple with rounded amounts and dedupe.
-6. **Metrics:** never report accuracy (imbalance makes it meaningless). Use precision@K, recall, F1, PR-AUC.
-7. **Graph:** never build a global graph over the whole dataset — build **subgraphs on filtered slices / around a seed** only.
-8. **Store:** DuckDB is canonical; pandas only for small slices pulled out to compute on.
+8. **Metrics:** never report accuracy (imbalance makes it meaningless). Use precision@K, recall, F1, PR-AUC.
+9. **Graph:** never build a global graph over the whole dataset — build **subgraphs on filtered slices / around a seed** only.
+10. **Store:** DuckDB is canonical; pandas only for small slices pulled out to compute on.

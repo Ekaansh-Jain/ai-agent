@@ -17,3 +17,7 @@ A running record of durable decisions and *why*. Update when a decision changes 
 | 2026-07-24 | **Held-out Patterns file is an integrity rule, not a note** | Feeding labels to the agent invalidates all metrics; kept in a separate ground-truth module |
 | 2026-07-24 | **Node identity = `(Bank, Account)`** | Hex account codes repeat across banks |
 | 2026-07-24 | **No accuracy metric; use precision@K / recall / F1 / PR-AUC** | ~0.1% positive rate makes accuracy meaningless |
+| 2026-07-24 | **Structuring = seed ONE small case (disclosed), not derived from FAN-IN** | The full FAN-IN example is large-amount consolidation (legs from ~62k to 676 billion Ruble), not near-threshold — so FAN-IN does not double as structuring. Smurfing/consolidation still uses real labeled FAN-IN |
+| 2026-07-24 | **Load all bank/account codes as strings; no int coercion, no re-padding** | Bank codes are variable-length (`026`, `029`, `000`, `00952`, `0072043`); different lengths are different banks. Coercing to int would drop leading zeros and cause collisions/failed joins |
+| 2026-07-24 | **Log-scaled / robust amount features** | Amounts span ~1e3 to ~1e11+; mean/std would be dominated by outliers |
+| 2026-07-24 | **`cross_currency` (in≠out) is optional, not core** | Every observed row has received==paid, same currency; currency handling matters for cross-transaction comparison, not within a row |
