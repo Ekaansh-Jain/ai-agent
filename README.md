@@ -49,6 +49,18 @@ The complete design — problem, banking background, architecture, every compone
 
 ### 👉 [NEXUS-AML-Design-Document.md](./NEXUS-AML-Design-Document.md)
 
+## Project artifacts
+
+| File | Purpose |
+|---|---|
+| [NEXUS-AML-Design-Document.md](./NEXUS-AML-Design-Document.md) | The full design (problem → architecture → components → UI → evaluation) |
+| [DATA-SPEC.md](./DATA-SPEC.md) | **Canonical** dataset spec (IBM AMLworld) — schema, patterns format, integrity rules. Point the build agent here. |
+| [DECISIONS.md](./DECISIONS.md) | Running log of durable decisions and their rationale |
+| [prompts/phase1-data.md](./prompts/phase1-data.md) | Trimmed Phase 1 build prompt (data layer only) |
+| [prompts/prompt-template.md](./prompts/prompt-template.md) | Reusable per-phase prompt template |
+
+> Where `DATA-SPEC.md` and the design document differ on data details, **`DATA-SPEC.md` wins.**
+
 ---
 
 > *NEXUS does not automate suspicion. It automates the collection and verification of evidence — so investigators make faster, more defensible decisions.*
