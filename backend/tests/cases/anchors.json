@@ -1,0 +1,70 @@
+{
+  "description": "Single anchor record for NEXUS-AML scoring anchors. Fixture anchors are pinned hermetically by tests/test_anchors.py; real-data anchors are re-measured and pinned by the gated anchor tests in tests/test_integration_realdata.py, which also assert the value is identical across three rebuilds of the profile table + PeerModel (see the 'stability' fields).",
+  "tolerance": 0.01,
+  "anchors": [
+    {
+      "id": "real_gather_scatter_hub_investigate_full",
+      "kind": "real_data",
+      "node": "0048309|811C599A0",
+      "dataset": "HI-Small",
+      "source": "data/raw/HI-Small_Trans.csv",
+      "group": "GATHER-SCATTER",
+      "typology": "smurfing",
+      "scoring_path": "investigate_full",
+      "measured": 53.18,
+      "historical_expected": 53.18,
+      "stability": "PINNED. Pre-fix this anchor was UNSTABLE across rebuilds of the profile table + PeerModel within a single process: measured spread [52.08, 52.86, 53.18] over 8 rebuilds (53.18 was merely the modal draw, 6/8), with peer_count 23,653..40,436 and z 1.8206..2.0952. Root cause: profiles.build_profiles ran an unordered FULL OUTER JOIN, so DuckDB returned the same 515,088 accounts in a different ROW ORDER per call, and MiniBatchKMeans in peers.PeerModel is row-order sensitive even with a fixed random_state - shifted clusters shift the per-cluster median/MAD, the peer_deviation z (weight 0.20) and the risk. Fixed by sorting the profile frame by its unique node index in build_profiles (clustering, k, random_state, n_init and all thresholds untouched). Post-fix the value is identical on every rebuild (8/8 = 53.18, z 2.0952, peer_count 32,455), so the historical 53.18 is now reproducible rather than probable. Guarded by test_real_data_anchors_are_stable_across_peer_model_rebuilds (integration) and tests/test_profiles_determinism.py (hermetic).",
+      "note": "THE 53.18 ANCHOR, IDENTIFIED. Node found by running the engine over all 41 cases in tests/cases/real_cases.json against HI-Small (PeerModel over build_profiles, NEXUS_USE_LLM=0): this is the only node scoring 53.18, and it matches to the cent under BOTH the current full investigate() path and the Phase 3a three-tool subset. It is the first GATHER-SCATTER entry in real_cases.json, consistent with the Phase 3a record. Risk contributions: peer_deviation 8.38 + flow_through 25.00 + network_convergence 19.80. The score is unchanged since Phase 3a because for the smurfing route no tool added after Phase 3a emits a weighted family - benign_signals emits retention/recurrence/stability and isolation_forest emits anomaly, none of which appear in RISK_WEIGHTS - so full investigate() and the three-tool subset are numerically identical here. What DID change is the verdict, not the score: the case now loses the duel to a benign hypothesis (winning_kind=benign, escalation=monitor) because benign_signals exists, i.e. the documented benign-gate false negative in docs/plan.md open decision 2. Risk stays 53.18 either way."
+    },
+    {
+      "id": "real_gather_scatter_hub_phase3a_three_tool",
+      "kind": "real_data",
+      "node": "0048309|811C599A0",
+      "dataset": "HI-Small",
+      "source": "data/raw/HI-Small_Trans.csv",
+      "group": "GATHER-SCATTER",
+      "typology": "smurfing",
+      "scoring_path": "phase3a_three_tool",
+      "measured": 53.18,
+      "historical_expected": 53.18,
+      "stability": "PINNED. Same pre-fix instability as the full-path anchor (both read the same peer_deviation record): spread [52.08, 52.86, 53.18] over 8 rebuilds, now 53.18 on every rebuild after the deterministic profile row order landed in build_profiles.",
+      "note": "Same node scored under the reconstructed Phase 3a conditions: peer_comparison + rapid_pass_through + graph_motif into a fresh EvidenceLedger, then risk.risk_score(records, 'smurfing'). This reproduces the scoring conditions that produced the historical 53.18 (three of five weighted families, ceiling 70, before benign_signals existed) and confirms the provenance of the number."
+    },
+    {
+      "id": "fixture_ring_hub",
+      "kind": "fixture",
+      "node": "0500|C1",
+      "dataset": "fixture",
+      "source": "tests/fixtures/ring_Trans.csv",
+      "typology": "smurfing",
+      "scoring_path": "investigate_full",
+      "measured": 56.0,
+      "historical_expected": 56.0,
+      "note": "Hermetic fixture anchor, pinned by tests/test_anchors.py. Phase 6 measurement established this is NOT the 53.18 number (design D2)."
+    },
+    {
+      "id": "fixture_case_hub",
+      "kind": "fixture",
+      "node": "0500|C1",
+      "dataset": "fixture",
+      "source": "tests/fixtures/case_Trans.csv",
+      "typology": "smurfing",
+      "scoring_path": "investigate_full",
+      "measured": 45.54,
+      "historical_expected": 45.54,
+      "note": "Hermetic fixture anchor, pinned by tests/test_anchors.py."
+    },
+    {
+      "id": "fixture_phase2_evidence_set",
+      "kind": "fixture",
+      "node": null,
+      "dataset": "fixture",
+      "source": "tests/test_phase2.py::_ring_ledger",
+      "typology": "smurfing",
+      "scoring_path": "risk_score_on_fixture_evidence",
+      "measured": 86.65,
+      "historical_expected": 86.65,
+      "note": "The Phase 2 worked-example evidence set through risk.risk_score. Hermetic, pinned by tests/test_anchors.py together with its seven-entry counterfactual sequence."
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+# Curated hypothesis library (investigator playbooks).
+# A hypothesis is a fingerprint: for each evidence family it cares about, an expected
+# direction (high/low) and an importance weight. Families not listed are neutral.
+# Benign hypotheses expecting the OPPOSITE direction are what rule out false positives.
+
+smurfing:
+  - id: H1
+    label: Structuring + rapid consolidation
+    kind: suspicious
+    fingerprint:
+      peer_deviation:        {expects: high, importance: 0.7}
+      flow_through:          {expects: high, importance: 1.0}
+      network_convergence:   {expects: high, importance: 1.0}
+      temporal_coordination: {expects: high, importance: 0.8}
+      recurrence:            {expects: low,  importance: 0.9}
+      stability:             {expects: low,  importance: 0.7}
+  - id: H2
+    label: Legitimate cash-intensive business
+    kind: benign
+    fingerprint:
+      retention:  {expects: high, importance: 1.0}
+      stability:  {expects: high, importance: 0.6}
+  - id: H3
+    label: Recurring legitimate collections
+    kind: benign
+    fingerprint:
+      recurrence:            {expects: high, importance: 0.8}
+      temporal_coordination: {expects: low,  importance: 0.5}
+  - id: H4
+    label: Pass-through pooler (processor / marketplace)
+    kind: benign
+    fingerprint:
+      recurrence: {expects: high, importance: 1.0}
+      stability:  {expects: high, importance: 0.9}
+
+structuring:
+  - id: H1
+    label: Near-threshold structuring
+    kind: suspicious
+    fingerprint:
+      typology_rule:  {expects: high, importance: 1.0}
+      peer_deviation: {expects: high, importance: 0.4}
+  - id: H2
+    label: Legitimate deposits (not threshold-shaped)
+    kind: benign
+    fingerprint:
+      typology_rule:  {expects: low, importance: 1.0}

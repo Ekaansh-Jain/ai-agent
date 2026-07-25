@@ -1,0 +1,248 @@
+[
+  {
+    "node": "0048309|811C599A0",
+    "label": "laundering",
+    "group": "GATHER-SCATTER",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0241869|80F390FC0",
+    "label": "laundering",
+    "group": "GATHER-SCATTER",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0148350|812D0C3C0",
+    "label": "laundering",
+    "group": "GATHER-SCATTER",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0119|811C597B0",
+    "label": "laundering",
+    "group": "FAN-IN",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0048308|811ED7DF0",
+    "label": "laundering",
+    "group": "FAN-IN",
+    "typology": "smurfing"
+  },
+  {
+    "node": "012|800054B70",
+    "label": "laundering",
+    "group": "GATHER-SCATTER",
+    "typology": "smurfing"
+  },
+  {
+    "node": "01362|8001ECD70",
+    "label": "laundering",
+    "group": "FAN-IN",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0211|808E44B10",
+    "label": "laundering",
+    "group": "GATHER-SCATTER",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0135981|80F984C70",
+    "label": "laundering",
+    "group": "GATHER-SCATTER",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0049365|812A09D40",
+    "label": "laundering",
+    "group": "FAN-IN",
+    "typology": "smurfing"
+  },
+  {
+    "node": "015231|80266F880",
+    "label": "laundering",
+    "group": "GATHER-SCATTER",
+    "typology": "smurfing"
+  },
+  {
+    "node": "019318|8106B1750",
+    "label": "laundering",
+    "group": "GATHER-SCATTER",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0214615|8075AC7C0",
+    "label": "laundering",
+    "group": "GATHER-SCATTER",
+    "typology": "smurfing"
+  },
+  {
+    "node": "01420|80437D050",
+    "label": "laundering",
+    "group": "GATHER-SCATTER",
+    "typology": "smurfing"
+  },
+  {
+    "node": "012|8010D4440",
+    "label": "laundering",
+    "group": "GATHER-SCATTER",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0026302|809DACA80",
+    "label": "laundering",
+    "group": "GATHER-SCATTER",
+    "typology": "smurfing"
+  },
+  {
+    "node": "021918|8053168D0",
+    "label": "laundering",
+    "group": "FAN-IN",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0026174|809CC4600",
+    "label": "laundering",
+    "group": "FAN-IN",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0139342|80EB1E930",
+    "label": "laundering",
+    "group": "GATHER-SCATTER",
+    "typology": "smurfing"
+  },
+  {
+    "node": "008771|80C6F48A0",
+    "label": "laundering",
+    "group": "GATHER-SCATTER",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010057|803AFC4A0",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010057|803B870F0",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010057|803B8B970",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010057|803DE6C00",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010057|803DED720",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010057|803DF0FC0",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010057|803E0B7D0",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010057|803E5AA70",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010057|803F28B60",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010057|80409F5C0",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010057|8040D4F20",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010057|8041512D0",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010057|804355EC0",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010057|80E90D970",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010057|8145F1A30",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010060|803ACAC50",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010060|803AEC3D0",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010060|803F522D0",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010060|8040DEAE0",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "0010060|804322110",
+    "label": "benign",
+    "group": "high_fan_in",
+    "typology": "smurfing"
+  },
+  {
+    "node": "024144|80D9B69A0",
+    "label": "laundering",
+    "group": "structuring",
+    "typology": "structuring"
+  }
+]

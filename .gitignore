@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+backend/.venv/
+
+# DuckDB / local stores
+*.duckdb
+*.db
+
+# Trained models
+models/
+backend/models/
+
+# Raw AMLworld data (large; keep out of git)
+data/raw/*.csv
+data/raw/*.txt
+
+# Secrets
+.env
+backend/.env
+
+# Test / tool caches
+.pytest_cache/
+backend/.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.hypothesis/
+
+# Frontend (Phase 7, not built yet)
+node_modules/
+frontend/dist/
+frontend/.vite/
+*.local
+
+# Editors
+.idea/
+*.swp
+
+# OS
+.DS_Store
